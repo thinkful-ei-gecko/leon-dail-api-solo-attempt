@@ -9,6 +9,11 @@ $(document).ready(function() {
     .then(res => res.json())
     .then((items) => {
       items.forEach((item) => store.addItem(item));
+      //Test #7
+      // const item = store.items[0];
+      // console.log('current name: ' + item.name);
+      // store.findAndUpdate(item.id, { name: 'lady' });
+      // console.log('new name: ' + item.name);
       shoppingList.render();
     });
 });
@@ -35,3 +40,13 @@ $(document).ready(function() {
 //   .then((items) => {
 //     console.log(items);
 //   });
+
+//Test #5
+// api.getItems()
+//   .then(res => res.json())
+//   .then((items) => {
+//     const item = items[0];
+//     return api.updateItem(item.id, { checked: 'foobar' });
+//   })
+//   .then(res => res.json())
+//   .then(() => console.log('updated!'));
