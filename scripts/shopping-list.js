@@ -43,9 +43,15 @@ const shoppingList = (function(){
   
   function render() {
     // Filter item list if store prop is true by item.checked === false
-    let items = [ ...store.items ];
-    if (store.hideCheckedItems) {
-      items = items.filter(item => !item.checked);
+    if (store.error) {
+      $('h1').text(`Error: ${store.error}`);
+    }
+    else {
+      $('#container h1').text('Shopping List');
+      let items = [ ...store.items ];
+      if (store.hideCheckedItems) {
+        items = items.filter(item => !item.checked);
+      }
     }
   
     // Filter item list if store prop `searchTerm` is not empty
@@ -85,8 +91,9 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      api.updateItem(id, {'checked' : !id.checked});
-      store.findAndUpdate(id, {'checked' : !id.checked});
+      let obj = store.findById(id);
+      api.updateItem(id, {'checked' : !obj.checked});
+      store.findAndUpdate(id, {'checked' : !obj.checked});
       render();
     });
   }
@@ -97,6 +104,7 @@ const shoppingList = (function(){
       // get the index of the item in store.items
       const id = getItemIdFromElement(event.currentTarget);
       // delete the item
+      api.deleteItem(id);
       store.findAndDelete(id);
       // render the updated shopping list
       render();

@@ -16,11 +16,11 @@ const store = (function(){
   };
 
   const findAndDelete = function(id) {
-    this.items = this.items.filter(item => item.id !== id);
+    store.items = store.items.filter(item => item.id !== id);
   };
 
   const toggleCheckedFilter = function() {
-    this.hideCheckedItems = !this.hideCheckedItems;
+    store.hideCheckedItems = !store.hideCheckedItems;
   };
 
   const setItemIsEditing = function(id, isEditing) {
@@ -32,11 +32,17 @@ const store = (function(){
     this.searchTerm = term;
   };
 
+  const setError = function(message) {
+    this.error = 'message';
+  };
+
   return {
     items: [],
     hideCheckedItems: false,
     searchTerm: '',
+    error: null,
 
+    setError,
     addItem,
     findById,
     findAndDelete,
