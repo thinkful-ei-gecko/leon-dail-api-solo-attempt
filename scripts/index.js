@@ -4,9 +4,16 @@
 $(document).ready(function() {
   shoppingList.bindEventListeners();
   shoppingList.render();
+
+  api.getItems()
+    .then(res => res.json())
+    .then((items) => {
+      items.forEach((item) => store.addItem(item));
+      shoppingList.render();
+    });
 });
 
-store.items.push(Item.create('apples'));
+//store.items.push(Item.create('apples'));
 
 // Test #1
 // fetch('https://thinkful-list-api.herokuapp.com/ei-student/items')
